@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.FriendDynamic" table="friend_dynamic" catalog="Smart">
+        <id name="dynamicId" type="java.lang.Integer">
+            <column name="dynamicId" />
+            <generator class="increment" />
+        </id>
+		<property name="content" type="java.lang.String">
+            <column name="content" length="100" not-null="true" />
+        </property>
+        <property name="publishTime" type="java.sql.Timestamp">
+            <column name="publishTime" />
+        </property>
+        <property name="friendId" type="java.lang.Integer">
+        <column name="friendId"/>
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userId" />
+        </property>
+        <property name="entityId" type="java.lang.Integer">
+            <column name="entityId" />
+        </property>
+        <property name="entityType" type="java.lang.Integer">
+            <column name="entityType" />
+        </property>
+        </class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.ShLVInfo" table="shlvInfo" catalog="Smart">
+		<id name="shId" type="java.lang.Integer">
+            <column name="shId" />
+            <generator class="increment" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+       		<column name="userId"/>
+        </property>
+        <property name="circleId" type="java.lang.Integer">
+       		<column name="circleId"/>
+        </property>
+        <property name="title" type="java.lang.String">
+            <column name="title" length="45" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" length="100" />
+        </property>
+        <property name="timestamp" type="java.sql.Timestamp">
+        	<column name="timestamp"/>
+        </property>
+        <property name="type" type="java.lang.Integer">
+        	<column name="type"/>
+        </property>
+        <property name="delFlg" type="java.lang.Integer">
+        	<column name="delFlg"/>
+        </property> 	
+          <property name="linkWay" type="java.lang.String">
+        	<column name="linkway"/>
+        </property> 
+          <property name="picture" type="java.lang.String">
+        	<column name="picture"/>
+        </property> 
+         <property name="commentNum" type="java.lang.Integer">
+        	<column name="commentNum"/>
+        </property> 	 
+	</class>
+</hibernate-mapping>

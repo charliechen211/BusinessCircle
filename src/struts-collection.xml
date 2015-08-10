@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="collection" namespace="/collection" extends="json-default" >
+		<action name="addCollection" class="com.t.action.CollectionAction" method="addCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="delCollection" class="com.t.action.CollectionAction" method="delCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>		
+		
+		<action name="fetchCollection" class="com.t.action.CollectionAction" method="fetchCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="addBCCollection" class="com.t.action.CollectionAction" method="addBCCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>	
+		
+		<action name="fetchBCCollection" class="com.t.action.CollectionAction" method="fetchBCCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<action name="delBCCollection" class="com.t.action.CollectionAction" method="delBCCollection">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>

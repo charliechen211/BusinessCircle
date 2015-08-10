@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="interaction" namespace="/interaction" extends="json-default" >
+		
+		<action name="addInteraction" class="com.t.action.InteractionAction" method="addInteraction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="delInteraction" class="com.t.action.InteractionAction" method="delInteraction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="passInteraction" class="com.t.action.InteractionAction" method="passInteraction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getList" class="com.t.action.InteractionAction" method="getList">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="reportBad" class="com.t.action.InteractionAction" method="reportBad">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getBadNews" class="com.t.action.InteractionAction" method="getBadNews">
+			<result name="badlist"> /web/InteractionList.jsp</result>
+			<result name="empty">/web/empty.jsp</result>	
+		</action>
+		
+	</package>
+</struts>

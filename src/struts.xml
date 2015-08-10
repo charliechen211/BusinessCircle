@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+      
+<struts>
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+	
+	<package name="custom-default" extends="json-default">
+	
+		<interceptors>
+      		<interceptor-stack name="imageValidate">
+				
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			
+   		 </interceptors>
+   		
+		<global-results>
+			<result name="error">/error.html</result>
+		</global-results>
+	</package>
+	<include file="struts-advertise.xml"/> 
+	<include file="struts-item.xml"/>
+	<include file="struts-fetchMerchant.xml"/>
+    <include file="struts-merchant.xml"/>
+    <include file="struts-mowner.xml"/>
+	<include file="struts-comment.xml"/>
+	<include file="struts-tag.xml"/>
+	<include file="struts-user.xml"/>
+	<include file="struts-recsys.xml"/>
+	<include file="struts-searchMerchant.xml"/>
+	<include file="struts-circleDynamic.xml"/>
+	<include file="struts-dataTrans.xml"/>
+	<include file="struts-queue.xml"/>
+	<include file="struts-merchantTableManager.xml"/>
+	<include file="struts-search.xml"/>
+	<include file="struts-collection.xml"/>
+	<include file="struts-order.xml"/> 
+	<include file="struts-subscription.xml"/>
+	<include file="struts-shlvinfo.xml"/>
+	<include file="struts-shcomment.xml"/>
+	<include file="struts-Interaction.xml"/>
+	<include file="struts-InteractionReply.xml"/>
+	<include file="struts-SchoolActivity.xml"/>
+	<include file="struts-SchoolAroundItem.xml"/>
+	<include file="struts-SchoolNews.xml"/>
+	<include file="struts-PartTimeJob.xml"/>
+	<include file="struts-circle.xml"/>
+	<include file="struts-location.xml"/>
+	<include file="struts-moduletab.xml"/>
+</struts>

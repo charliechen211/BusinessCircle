@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="merchantTable" namespace="/merchantTable" extends="json-default" >
+		<action name="findByMerchantId" class="com.t.action.MerchantTableManagerAction" method="findByMerchantId">
+			<result type="json">
+				<param name="root">findResult</param>
+			</result>
+		</action>
+		
+		<action name="addMerchantTableInfo" class="com.t.action.MerchantTableManagerAction" method="addMerchantTableInfo">
+			<result name="success">/web/TableMessage.jsp </result>
+			<result name="fail">/web/error.html</result>	
+		</action> 
+		
+		<action name="getTableList" class="com.t.action.MerchantTableManagerAction" method="getTableList">
+			<result name="success">/web/TableList.jsp </result>
+			<result name="fail">/web/error.html</result>	
+		</action> 
+		
+		<action name="tableFindById" class="com.t.action.MerchantTableManagerAction" method="tableFindById">
+			<result name="success">/web/TableMessage.jsp </result>
+			<result name="fail">/web/error.html</result>	
+		</action>
+		
+		<action name="tableDeleteById" class="com.t.action.MerchantTableManagerAction" method="removeMerchantTableInfo">
+			<result name="success" >/web/TableList.jsp </result>
+			<result name="fail">/web/error.html</result>	
+		</action>
+		
+		<action name="modifyMerchantTableInfo" class="com.t.action.MerchantTableManagerAction" method="modifyMerchantTableInfo">
+			<result name="success">/web/TableMessage.jsp  </result>
+			<result name="fail">/web/error.html</result>	
+		</action>
+		
+		<action name="MerchantList4Table" class="com.t.action.MerchantTableManagerAction" method="MerchantList">
+			<result name="success">/web/ShopList4Tables.jsp </result>
+			<result name="fail">/web/NoMerchant.jsp</result>	
+		</action>
+		
+		<action name="MerchantList4Queue" class="com.t.action.MerchantTableManagerAction" method="MerchantList">
+			<result name="success">/web/ShopList4Queue.jsp </result>
+			<result name="fail">/web/NoMerchant.jsp</result>	
+		</action>
+		
+	</package>
+</struts>

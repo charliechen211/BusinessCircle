@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="comment" namespace="/comment" extends="json-default" >
+		<action name="addComments" class="com.t.action.CommentAction" method="addComments">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="fetchBCComment" class="com.t.action.CommentAction" method="fetchComments">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getAnalysis" class="com.t.action.CommentAction" method="getAnalysis">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getShopComments" class="com.t.action.CommentAction" method="getShopComments">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>

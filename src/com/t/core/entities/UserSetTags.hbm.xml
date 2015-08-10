@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.UserSetTags" table="user_set_tags" catalog="Smart">
+        <id name="Id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+           
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+        </property>
+        
+        <property name="tagId" type="java.lang.Integer">
+            <column name="tag_id" />
+        </property>
+        
+        <property name="tagContent" type="java.lang.String">
+            <column name="tag_content" />
+        </property>
+        
+        </class>
+</hibernate-mapping>

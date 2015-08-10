@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="order" namespace="/order" extends="json-default" >
+		<action name="manageCart" class="com.t.action.OrderAction" method="manageCart">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="checkMyCart" class="com.t.action.OrderAction" method="checkMyCart">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="placeOrder" class="com.t.action.OrderAction" method="placeOrder">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="checkOrder" class="com.t.action.OrderAction" method="checkOrder">
+			<result type="json">
+				<param name="root">booleanResult</param>
+			</result>
+		</action>
+		
+		<action name="checkMyOrders" class="com.t.action.OrderAction" method="checkMyOrders">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="OrderDealPre" class="com.t.action.OrderAction" method="OrderDealPre">
+			<result name="success">/web/OrderDeal.jsp </result>
+			<result name="empty">/web/NoMerchant.jsp</result>	
+		    <result name="fail">/web/error.html</result>		 
+		</action>
+		
+	   <action name="Search" class="com.t.action.OrderAction" method="getList">
+			<result name="success">/web/OrderDeal.jsp </result>
+		    <result name="fail">/web/error.html</result>		 
+		</action>
+		
+	</package>
+</struts>

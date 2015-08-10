@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.Order" table="order" catalog="Smart">
+        <id name="orderId" type="java.lang.Integer">
+            <column name="orderId" />
+            <generator class="identity" />
+        </id>
+        <property name="merchantId" type="java.lang.Integer">
+            <column name="merchantId" />
+        </property>
+        <property name="cartId" type="java.lang.Integer">
+            <column name="cartId" />
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userId" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <property name="orderTime" type="java.sql.Timestamp">
+            <column name="orderTime" />
+        </property>
+        </class>
+</hibernate-mapping>

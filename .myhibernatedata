@@ -1,0 +1,24 @@
+#MyEclipse Hibernate Properties
+#Tue Dec 03 23:05:13 CST 2013
+sessionFactoryName=com.t.core.entities.HibernateSessionFactory
+genBasicCompId=false
+profile=
+daoSFId=
+version=3.3
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=true
+keyGenerator=
+libInstallFolder=<no jars/zips in selected libraries>
+addLibs2Project=true
+genVersionTag=false
+sessionFactoryId=hibernateSessionFactory
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/BusinessCircle/src/applicationContext.xml
+createConfigFile=false
+addLibs2Classpath=true

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.SubscriptionBCMerchant" table="subscription_bc_merchant" catalog="Smart">
+        <id name="subscriptionId" type="java.lang.Integer">
+            <column name="subscriptionId" />
+            <generator class="increment" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userId" />
+        </property>
+        <property name="merchantId" type="java.lang.Integer">
+            <column name="merchantId" />
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="type" />
+        </property>
+        
+        </class>
+</hibernate-mapping>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.Comment" table="Comment" catalog="Smart">
+		<id name="commentId" type="java.lang.Integer">
+            <column name="comment_id" />
+            <generator class="increment" />
+        </id>
+        <property name="entityId" type="java.lang.Integer">
+       		<column name="entityId"/>
+        </property>
+        <property name="entityType" type="java.lang.Integer">
+       		<column name="entityType"/>
+        </property>
+        <property name="timestamp" type="java.sql.Timestamp">
+        	<column name="timestamp"/>
+        </property>
+        <property name="userId" type="java.lang.Integer">
+        	<column name="user_id"/>
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="content" length="200" />
+        </property>
+        <property name="rate1" type="java.lang.Double">
+            <column name="rate1"/>
+        </property>
+ 		<property name="rate2" type="java.lang.Double">
+            <column name="rate2"/>
+        </property>
+         <property name="rate3" type="java.lang.Double">
+            <column name="rate3"/>
+        </property>
+        <property name="consume" type="java.lang.Double">
+            <column name="consume"/>
+        </property>
+ 		 
+	</class>
+</hibernate-mapping>

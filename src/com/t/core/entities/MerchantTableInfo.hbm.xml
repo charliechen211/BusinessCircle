@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.MerchantTableInfo" table="merchant_table_info" catalog="Smart">
+		<id name="mtiId" type="java.lang.Integer">
+            <column name="mtiId" />
+            <generator class="increment" />
+        </id>
+        <property name="merchantId" type="java.lang.Integer">
+            <column name="merchantId" />
+        </property>
+        <property name="tableType" type="java.lang.String">
+            <column name="tableType" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" />
+        </property>
+        <property name="startTime" type="java.lang.String">
+            <column name="startTime" />
+        </property>
+        <property name="endTime" type="java.lang.String">
+            <column name="endTime" />
+        </property>
+	</class>
+</hibernate-mapping>

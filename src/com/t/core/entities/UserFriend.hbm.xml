@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.UserFriend" table="user_friend" catalog="Smart">
+		<id name="ufId" type="java.lang.Integer">
+            <column name="ufid" />
+            <generator class="increment" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="uid" />
+        </property>
+        <property name="friendId" type="java.lang.Integer">
+            <column name="fid" />
+        </property>
+        <property name="weight" type="java.lang.Double">
+            <column name="weight" />
+        </property>
+        
+	</class>
+</hibernate-mapping>

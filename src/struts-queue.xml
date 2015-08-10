@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="queue" namespace="/queue" extends="json-default" >
+		<action name="insertQueue" class="com.t.action.QueueAction" method="insertQueue">
+			<result type="json">
+				<param name="root">queueBean</param>
+			</result>
+		</action>
+		<action name="getQueue" class="com.t.action.QueueAction" method="getQueue">
+			<result type="json">
+				<param name="root">queueResult</param>
+			</result>
+		</action>
+		<action name="checkQueue" class="com.t.action.QueueAction" method="checkQueue">
+			<result type="json">
+				<param name="root">booleanResult</param>
+			</result>
+		</action>
+		<action name="getQueueToNotice" class="com.t.action.QueueAction" method="getQueueToNotice">
+			<result type="json">
+				<param name="root">queueResult</param>
+			</result>
+		</action>
+		<action name="getMerchantQueue" class="com.t.action.QueueAction" method="getMerchantQueue">
+			<result type="json">
+				<param name="root">queueMap</param>
+			</result>
+		</action>
+		<action name="getUserQueue" class="com.t.action.QueueAction" method="getUserQueue">
+			<result type="json">
+				<param name="root">queueMap</param>
+			</result>
+		</action>
+		
+		<action name="getMerchantQueue4Owner" class="com.t.action.QueueAction" method="getMerchantQueue4Owner">
+			<result name="success">/web/QueueList.jsp</result>
+		 <result name="fail">/web/error.html</result>		 
+		</action>
+		
+		<action name="SearchQueue" class="com.t.action.QueueAction" method="SearchQueue">
+			<result name="success">/web/QueueList.jsp</result>
+		     <result name="fail">/web/error.html</result> 
+		</action>
+		
+	</package>
+</struts>

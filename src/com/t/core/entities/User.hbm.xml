@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.User" table="User" catalog="Smart">
+		<id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="increment" />
+        </id>
+        <property name="password" type="java.lang.String">
+            <column name="passwd" />
+        </property>
+        <property name="userName" type="java.lang.String">
+            <column name="user_name" />
+        </property>
+        <property name="regDate" type="java.sql.Timestamp">
+            <column name="reg_date" />
+        </property>
+        <property name="mobilePhone" type="java.lang.String">
+            <column name="mobile_phone" />
+        </property>
+        <property name="weiboAccount" type="java.lang.String">
+            <column name="weibo_account" />
+        </property>
+	</class>
+</hibernate-mapping>

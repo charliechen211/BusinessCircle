@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.t.core.entities.UserInfo" table="UserInfo" catalog="Smart">
+		<id name="userId" type="java.lang.Integer">
+            <column name="uid" />
+            <generator class="assigned"/>
+        </id>
+        <property name="nickname" type="java.lang.String">
+            <column name="nickname" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="age" />
+        </property>
+        <property name="job" type="java.lang.Integer">
+            <column name="job" />
+        </property>
+		<property name="hometown" type="java.lang.Integer">
+            <column name="home" />
+        </property>
+        <property name="income" type="java.lang.Integer">
+            <column name="income" />
+        </property>
+        <property name="point" type="java.lang.Integer">
+            <column name="point" />
+        </property>
+        <property name="sex" type="java.lang.Integer">
+            <column name="sex" />
+        </property>
+        <property name="picture" type="java.lang.String">
+            <column name="picture" />
+        </property>
+        
+         <property name="schoolId" type="java.lang.Integer">
+            <column name="school_id" />
+        </property>
+        
+         <property name="regionId" type="java.lang.Integer">
+            <column name="school_region_id" />
+        </property>
+	</class>
+</hibernate-mapping>

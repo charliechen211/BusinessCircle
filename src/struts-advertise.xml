@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="advertise1" namespace="/adver" extends="json-default" >
+	
+		<!-- android端用于显示用户订阅的商家广告 -->
+		<action name="fetchSubscription" class="com.t.action.AdvertiseAction" method="fetchSubscription">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- web商家端 -->
+		<action name="addAdvertise" class="com.t.action.AdvertiseAction" method="advertiseAdd">
+			<result name="addsucceed" type="redirectAction">
+					<param name="namespace">/adver</param>
+					<param name="actionName">adverList</param> 
+			</result>
+				<result name="addfailed">/web/NoMerchant.jsp</result>		 
+		</action>
+		
+		<action name="updateAdver" class="com.t.action.AdvertiseAction" method="updateAdver">
+			<result name="updatesucceed">/web/AdvertiseMessage.jsp </result>
+				<result name="updatefailed">/web/error.html</result>		 
+		</action>
+		
+		<action name="adverList" class="com.t.action.AdvertiseAction" method="getAllAdvers">
+			<result name="adverList">/web/AdvertiseList.jsp</result>
+			<result name="advernull">/web/empty.jsp</result>		 
+		</action>
+		
+		<action name="adverFindById" class="com.t.action.AdvertiseAction" method="findAdverById">
+			<result name="findSuccess">/web/AdvertiseMessage.jsp</result>
+			<result name="NotExist">/web/empty.jsp</result>		 
+		</action>
+		
+		<action name="adverDeleteById" class="com.t.action.AdvertiseAction" method="deleteAdverById">
+			<result name="deleteSuccess" type="redirectAction">
+					<param name="namespace">/adver</param>
+					<param name="actionName">adverList</param> 
+			</result>
+		 <result name="deletefailed" >/web/empty.jsp</result>
+		</action>
+		
+		<action name="queryAdverById" class="com.t.action.AdvertiseAction" method="queryAdverById" >
+			<result name="querySuccess">/web/AdvertiseList.jsp</result>  
+			<result name="NotExist">/web/empty.jsp  </result>
+		</action>
+		
+		 <action name="IntegratedSearch" class="com.t.action.AdvertiseAction" method="IntegratedSearch" >
+			<result name="success">/web/AdvertiseList.jsp</result>  
+			<result name="fail">/web/empty.jsp  </result> 
+		</action>
+		
+		 <action name="AdvertiseAddPre" class="com.t.action.AdvertiseAction" method="AdvertiseAddPre" >
+			<result name="success">/web/AdvertiseAdd.jsp</result> 
+			 <result name="empty">/web/NoMerchant.jsp</result> 
+			<result name="fail">/web/error.html  </result> 
+		</action>
+		
+	</package>
+</struts>

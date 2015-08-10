@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="BusinessCircle"
+  id="myeclipse.1353134589527"
+  context-root="/BusinessCircle"
+  j2ee-spec="6.0"
+  archive="BusinessCircle.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

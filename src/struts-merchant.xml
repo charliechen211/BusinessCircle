@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="Merchant" namespace="/merchant" extends="json-default" >
+		<action name="fetchMerchantBean" class="com.t.action.MerchantAction" method="fetchMerchantBean">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="fetchMerchantBeans" class="com.t.action.MerchantAction" method="fetchMerchantBeans">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="MerchantAddAction" class="com.t.action.MerchantAction" method="shopAdd">
+		 <interceptor-ref name="fileUpload">  
+                <param name="allowedTypes">  
+                 image/bmp,image/png,image/gif,image/jpeg,image/pjpeg  
+                 </param>            
+         </interceptor-ref>  
+         <interceptor-ref name="defaultStack" />  
+		
+			<result name="shopAddSuccess" type="redirectAction">
+					<param name="namespace">/MerchantOwner</param>
+					<param name="actionName">MerchantList</param>	
+			</result>	
+			<result name="error">/web/error.html</result>				 
+		</action>
+		<action name="MerchantUpdateAction" class="com.t.action.MerchantAction" method="updateMerchant" >
+			<result name="updateSuccess">/web/ShopMessage.jsp </result>  
+			<result name="updatefailed">/web/error.html  </result>
+		</action>
+		
+		<action name="deleteMerchant" class="com.t.action.MerchantAction" method="deleteMerchant" >
+			<result name="deleteSuccess" type="redirectAction">
+					<param name="namespace">/MerchantOwner</param>
+					<param name="actionName">MerchantList</param>
+			</result>
+		</action>
+		
+		<action name="shopFindById" class="com.t.action.MerchantAction" method="shopFindById" >
+			<result name="shopFindSuccess">/web/ShopMessage.jsp</result>
+			<result name="shopNotExist">/web/empty.jsp</result>
+		</action>
+		
+		<action name="queryShopById" class="com.t.action.MerchantAction" method="queryShopById" >
+			<result name="queryShopSuccess">/web/ShopList.jsp  </result>  
+			<result name="shopNotExist">/web/empty.jsp  </result>
+		</action>
+		
+		<action name="queryShopByName" class="com.t.action.MerchantAction" method="queryShopByName" >
+			<result name="queryShopSuccess">/web/ShopList.jsp  </result>  
+			<result name="shopNotExist">/web/empty.jsp  </result>
+		</action>
+		
+		<action name="queryShopByAddress" class="com.t.action.MerchantAction" method="queryShopByAddress" >
+			<result name="queryShopSuccess">/web/ShopList.jsp  </result>  
+			<result name="shopNotExist">/web/empty.jsp  </result>
+		</action>
+		
+		<action name="IntegratedSearch" class="com.t.action.MerchantAction" method="IntegratedSearch" >
+			<result name="success">/web/ShopList.jsp  </result>  
+			<result name="fail">/web/empty.jsp  </result>
+		</action>  
+		
+		  <action name="ShopCheck" class="com.t.action.MerchantAction" method="ShopCheck" >
+			<result name="success">/web/ShopCheckList.jsp  </result>  
+			<result name="fail">/web/empty.jsp  </result>
+			<result name="empty">/web/empty.jsp  </result>
+		</action>
+		
+		 <action name="checkMerchant" class="com.t.action.MerchantAction" method="checkMerchant" >
+			<result name="success"></result>  
+			<result name="empty">/web/empty.jsp  </result>
+		</action>
+		
+		 <action name="getAllShops" class="com.t.action.MerchantAction" method="getAllShops" >
+			<result name="success">/web/AllShopList.jsp</result>  
+			<result name="empty">/web/empty.jsp  </result>
+		</action>
+		
+		 <action name="IntegratedSearchAll" class="com.t.action.MerchantAction" method="IntegratedSearchAll" >
+			<result name="success">/web/AllShopList.jsp</result>  
+			<result name="empty">/web/empty.jsp  </result>
+		</action>
+		
+		
+		
+	</package>
+</struts>

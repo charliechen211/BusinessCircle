@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- By yerurui  -->
+<struts>
+	<package name="search" namespace="/search" extends="json-default" >
+		<action name="firstSearch" class="com.t.action.SearchAction" method="searchWithWord">
+			<result type="json">
+				<param name="root">resultBeans</param>
+			</result>
+		</action>
+		<action name="secondSearch" class="com.t.action.SearchAction" method="searchWithShop">
+			<result type="json">
+				<param name="root">resultBeans</param>
+			</result>
+		</action>
+	</package>
+</struts>

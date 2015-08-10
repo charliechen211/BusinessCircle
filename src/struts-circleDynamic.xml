@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="circleDynamic" namespace="/circleDynamic" extends="json-default" >
+		<action name="addCircleDynamic" class="com.t.action.CircleDynamicAction" method="addCircleDynamic">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="fetchCircleDynamic" class="com.t.action.CircleDynamicAction" method="fetchCircleDynamic">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		<action name="fetchFriendDynamic" class="com.t.action.CircleDynamicAction" method="fetchFriendDynamic">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="fetchMysharing" class="com.t.action.CircleDynamicAction" method="fetchMysharing">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+		
+		<action name="delMysharing" class="com.t.action.CircleDynamicAction" method="delMySharing">
+			<result type="json">
+				<param name="root">result</param>
+			</result>		 
+		</action>
+	</package>
+</struts>

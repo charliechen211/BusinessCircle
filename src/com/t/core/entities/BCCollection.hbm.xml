@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="com.t.core.entities.BCCollection" table="bccollection" catalog="Smart">
+        <id name="collectionId" type="java.lang.Integer">
+            <column name="collectionId" />
+            <generator class="increment" />
+        </id>
+        <property name="timestamp" type="java.sql.Timestamp">
+            <column name="timestamp" />
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userId" />
+        </property>
+        <property name="entityId" type="java.lang.Integer">
+            <column name="entityId" />
+        </property>
+        <property name="entityType" type="java.lang.Integer">
+            <column name="entityType" />
+        </property>
+        </class>
+</hibernate-mapping>

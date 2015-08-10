@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="item" namespace="/item" extends="json-default" >
+		
+		<action name="getItemsByMerchantId" class="com.t.action.ItemAction" method="getItemsByMerchantId">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="getItemByItemId" class="com.t.action.ItemAction" method="getItemByItemId">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="ItemAddAction" class="com.t.action.ItemAction" method="itemAdd">
+			<result name="itemAddSuccess" type="redirectAction">
+					<param name="namespace">/item</param>
+					<param name="actionName">ItemList</param> 
+			</result>
+				<result name="error">/web/error.html</result>		 
+		</action>
+		
+		<action name="updateItem" class="com.t.action.ItemAction" method="updateItem">
+			<result name="updatesuccess">/web/ItemMessage.jsp </result>
+				<result name="error">/web/error.html</result>		 
+		</action>
+
+		
+		<action name="ItemList" class="com.t.action.ItemAction" method="getList">
+			<result name="itemList"> /web/ItemList.jsp</result>
+			<result name="emptyItem">/web/empty.jsp</result>	
+		   <result name="noshop">/web/NoMerchant.jsp</result>
+		</action>
+		
+		<action name="ItemFindById" class="com.t.action.ItemAction" method="findItemById">
+			<result name="itemFindSuccess"> /web/ItemMessage.jsp</result>
+			<result name="itemNotExist">/web/empty.jsp</result>		 
+		</action>
+		
+		<action name="deleteItemById" class="com.t.action.ItemAction" method="deleteItemById">
+			<result name="itemdeleteuccess" type="redirectAction">
+			<param name="namespace">/item</param>
+			<param name="actionName">ItemList</param> 
+			</result>
+		 <result name="itemdeletefailed" >/web/empty.jsp</result>
+		</action>
+
+		<action name="queryItemById" class="com.t.action.ItemAction" method="queryItemById" >
+			<result name="queryItemSuccess">/web/ItemList.jsp  </result>  
+			<result name="itemNotExist">/web/empty.jsp  </result>
+		</action>
+		
+			<action name="queryItemByName" class="com.t.action.ItemAction" method="queryItemByName" >
+			<result name="queryItemSuccess">/web/ItemList.jsp  </result>  
+			<result name="itemNotExist">/web/empty.jsp  </result>
+		</action>
+		
+		<action name="IntegratedSearch" class="com.t.action.ItemAction" method="IntegratedSearch" >
+			<result name="success">/web/ItemList.jsp  </result>  
+			<result name="fail">/web/empty.jsp  </result>
+		</action>
+		
+		<action name="ItemAddPre" class="com.t.action.ItemAction" method="ItemAddPre" >
+			<result name="success">/web/ItemAdd.jsp  </result>  
+			<result name="empty">/web/NoMerchant.jsp  </result>  
+			<result name="fail">/web/error.html  </result> 
+		</action> 
+		
+		<action name="updateItempre" class="com.t.action.ItemAction" method="updateItempre" >
+			<result name="success">/web/ItemManager.jsp  </result>  
+			<result name="fail">/web/error.html  </result> 
+		</action>
+		
+		<action name="itemCheck" class="com.t.action.ItemAction" method="itemCheck" >
+			<result name="success">/web/ItemCheckList.jsp  </result>  
+			<result name="empty">/web/empty.jsp  </result>
+			<result name="fail">/web/empty.jsp  </result>
+		</action>
+		
+	</package>
+</struts>

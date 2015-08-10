@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="MerchantOwner" namespace="/MerchantOwner" extends="json-default" >
+	
+		<action name="LoginAction" class="com.t.action.MerchantOwnerAction" method="Login">
+			<result name="success">/web/ManagerIndex.jsp</result>
+			<result name="admin">/web/AdminIndex.jsp</result>
+			<result name="campus">/web/CampusIndex.jsp</result>
+			<result name="fail">/web/loginFailed.jsp</result>
+		</action>
+		
+		<action name="RegAction" class="com.t.action.MerchantOwnerAction" method="regUser">
+			<result name="success">/web/regsucceed.jsp</result>
+			<result name="fail">/web/regfailed.jsp</result>
+		</action>
+		
+		<action name="MerchantList" class="com.t.action.MerchantOwnerAction" method="getAllList" >
+			<result name="merchantList">/web/ShopList.jsp</result>
+		    <result name="merchantnull">/web/empty.jsp</result>
+		</action> 
+		
+		<action name="getLoginUser" class="com.t.action.MerchantOwnerAction" method="getLoginUser">
+			<result name="success">/web/ModifyInfo.jsp</result>
+			<result name="fail">/web/error.html</result>
+		</action>
+		
+		<action name="ModifyInfo" class="com.t.action.MerchantOwnerAction" method="ModifyInfo">
+			<result name="success">/web/globalsuccess.html</result>
+			<result name="fail">/web/error.html</result>
+		</action>
+	
+	   <action name="ModifyPswd" class="com.t.action.MerchantOwnerAction" method="ModifyPswd">
+			<result name="success">/web/globalsuccess.html</result>
+			<result name="fail">/web/error.html</result>
+			<result name="InvalidatePwd">/web/InvalidatePwd.jsp</result>
+		</action>
+		
+	    <action name="MerchantList4Analysis" class="com.t.action.MerchantOwnerAction" method="MerchantList4Analysis" >
+			<result name="merchantList">/web/ShopList4Analysis.jsp</result>
+		    <result name="merchantnull">/web/empty.jsp</result>
+		</action>   
+		
+		 <action name="ownerCheck" class="com.t.action.MerchantOwnerAction" method="ownerCheck" >
+			<result name="success">/web/OwnerCheckList.jsp</result>
+		    <result name="empty">/web/empty.jsp</result>
+		</action> 
+	
+	    <action name="checkOwner" class="com.t.action.MerchantOwnerAction" method="check" >
+			<result name="success"></result>
+		    <result name="fail">/web/empty.jsp</result>
+		</action> 
+		
+		 <action name="RefuseList" class="com.t.action.MerchantOwnerAction" method="RefuseList" >
+			<result name="success">/web/ShopRefuseList.jsp</result>
+		    <result name="empty">/web/empty.jsp</result>
+		</action> 
+		
+	</package>
+</struts>

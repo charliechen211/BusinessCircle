@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="user" namespace="/user" extends="json-default" >
+		<action name="login" class="com.t.action.UserAction" method="login">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="register" class="com.t.action.UserAction" method="register">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="updateScore" class="com.t.action.UserAction" method="updateScore">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="bcregister" class="com.t.action.UserAction" method="bcregister">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="fetchUserBean" class="com.t.action.UserAction" method="fetchUserBean">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="fetchFriends" class="com.t.action.UserAction" method="fetchFriends">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="addFriend" class="com.t.action.UserAction" method="addFriend">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="deleteFriend" class="com.t.action.UserAction" method="deleteFriend">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getMyFans" class="com.t.action.UserAction" method="getMyFans">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getTagLib" class="com.t.action.UserAction" method="getTagLib">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getMyTags" class="com.t.action.UserAction" method="getMyTags">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="addTag" class="com.t.action.UserAction" method="addTag">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="modifyInfo" class="com.t.action.UserAction" method="modifyInfo">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getSchoolsRegions" class="com.t.action.UserAction" method="getSchoolsRegions">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+			
+
+     	<action name="recommendInfos" class="com.t.action.UserAction" method="recommendInfos">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="getRecommendFriendBeans" class="com.t.action.UserAction" method="getRecommendFriendBeans">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+</struts>
