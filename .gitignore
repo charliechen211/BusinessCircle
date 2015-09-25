@@ -1,0 +1,11 @@
+.idea/
+WebRoot/
+.class
+.classpath
+.gitignore
+.project
+.settings/
+.git/
+.springBeans
+*.iml
+
