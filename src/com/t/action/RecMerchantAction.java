@@ -32,6 +32,7 @@ public class RecMerchantAction extends BaseAction{
 	
 	// 从实时推荐系统中获取推荐商家
 	public String recMerchant(){
+		
 		merchantBean = recService.fetchRecMerchantBeans(userId);
 		result.put("result", merchantBean);
 		result.put(STATE, SUCCESS);
