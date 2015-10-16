@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.json.JSONSerializer;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.t.bean.CommentBean;
@@ -156,7 +157,19 @@ public class CommentAction extends BaseAction {
 		tagList = Arrays.asList(tags.split(";"));
 		if(tagList.size() > 0)
 		{
-			tagServe.insertTag(userId, entityId,Long.valueOf(String.valueOf( entityType)), tagList);
+			try {
+				tagServe.insertTag(userId, entityId,Long.valueOf(String.valueOf(entityType)), tagList);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result.put(STATE, FAIL);
+				return FAIL;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result.put(STATE, FAIL);
+				return FAIL;
+			}
 		}
 		result.put(STATE, SUCCESS);
 		return SUCCESS;

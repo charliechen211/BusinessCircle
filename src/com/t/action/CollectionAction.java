@@ -2,6 +2,7 @@ package com.t.action;
 
 import java.util.List;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.t.bean.CircleDynamicBean;
@@ -54,12 +55,21 @@ public class CollectionAction extends BaseAction{
 	 */
 	public String addBCCollection(){
 		
-		Integer r = collectionServe.addBCCollection(userId, entityId, entityType);
-		if(r == -1)
-		{
-			result.put("state","exist");
-		}else{
-			result.put("state",SUCCESS);
+		Integer r;
+		try {
+			r = collectionServe.addBCCollection(userId, entityId, entityType);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("state", FAIL);
+			return FAIL;			
+		}
+		if(r == -1) {
+			result.put("state", "exist");
+		} else if (r == 0) {
+			result.put("state", FAIL);
+		} else {
+			result.put("state", SUCCESS);
 		}
 		return SUCCESS;
 	}
@@ -89,7 +99,11 @@ public class CollectionAction extends BaseAction{
 	 * @return
 	 */
 	public String delBCCollection() {
-		result.put(STATE, collectionServe.delBCCollection(collectionId));
+		if (collectionServe.delBCCollection(collectionId)) {
+			result.put(STATE, SUCCESS);
+		} else {
+			result.put(STATE, FAIL);			
+		}
 		return SUCCESS;
 	}
 

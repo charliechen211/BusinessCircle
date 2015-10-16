@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.t.bean.ModuleObjectBean;
@@ -71,14 +72,23 @@ public class UserAction extends BaseAction {
 	//用户注册--我的大学
 	public String register(){
 
-		Integer userId = userServe.register(mobilePhone,password,sex,age,   //必选项
-				nickname,/*job,hometown,income,point*/schoolId,regionId,picture,tagContent);
+		Integer userId;
+		try {
+			userId = userServe.register(mobilePhone,password,sex,age,   //必选项
+					nickname,/*job,hometown,income,point*/schoolId,regionId,picture,tagContent);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put(STATE,FAIL);
+			return FAIL;
+		}
 		List<String> tagList = new ArrayList<String>();
 		//插入用户注册时的标签
 		if (tags != null && userId != -1){
 			String tag[]  = tags.split(";");
 			tagList = Arrays.asList(tag);
-			tagServe.insertTag(userId, userId, new Long(0), tagList);
+			// TODO insert tag in register
+//			tagServe.insertTag(userId, userId, new Long(0), tagList);
 		}
 		if(userId == -1)
 		{
@@ -100,7 +110,8 @@ public class UserAction extends BaseAction {
 		if (tags != null && userId != -1){
 			String tag[]  = tags.split(";");
 			tagList = Arrays.asList(tag);
-			tagServe.insertTag(userId, userId, new Long(0), tagList);
+			// TODO insert tag in register
+//			tagServe.insertTag(userId, userId, new Long(0), tagList);
 		}
 		if(userId == -1)
 		{
@@ -206,7 +217,14 @@ public class UserAction extends BaseAction {
 
 	//添加用户自定义标签
 	public String addTag(){
-		userServe.addTag(userId,tagContent);
+		try {
+			userServe.addTag(userId,tagContent);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put(STATE, FAIL);
+			return FAIL;
+		}
 		result.put(STATE, SUCCESS);
 		return SUCCESS;
 	}
@@ -222,7 +240,7 @@ public class UserAction extends BaseAction {
 	//修改个人信息
 	public String modifyInfo(){
 		try{
-			userServe.modifyInfo( userId, picture, nickname, schoolId, regionId,tagContent);
+			userServe.modifyInfo(userId, picture, nickname, schoolId, regionId, tagContent);
 			result.put(STATE, SUCCESS);
 			return SUCCESS;
 		}catch (Exception e){

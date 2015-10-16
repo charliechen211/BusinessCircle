@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -35,7 +37,9 @@ import com.t.core.entities.PartTimeJob;
 import com.t.core.entities.ShLVInfo;
 import com.t.core.entities.TagEntity;
 import com.t.service.interfaces.ICollectionService;
+import com.t.utils.BaseHttpClient;
 import com.t.utils.Constants;
+import com.t.utils.RecommenderUtils;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -328,7 +332,7 @@ public class CollectionService implements ICollectionService {
 	}
 
 	@Override
-	public Integer addBCCollection(Integer userId, Integer entityId,Integer entityType) {
+	public Integer addBCCollection(Integer userId, Integer entityId,Integer entityType) throws JSONException {
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		paramMap.put("entityId", entityId);
 		paramMap.put("entityType", entityType);
@@ -337,14 +341,49 @@ public class CollectionService implements ICollectionService {
 				"entityId = :entityId and entityType = :entityType and userId =:userId", paramMap).size() > 0)
 			return -1;
 		BCCollection collection = new BCCollection(null,entityId,entityType,userId,null);
-		return BCCollecDao.save(collection);
+		BCCollecDao.save(collection);
+		
+		if (entityType == 1) {
+			JSONObject root = new JSONObject();
+	        root.put("method", RecommenderUtils.collectItemMethod);
+	        JSONObject params = new JSONObject();
+	        params.put("userId", userId);
+	        params.put("itemId", entityId);
+	        root.put("params", params);
+			BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+			JSONObject response = httpClient.post(root);
+			if(!response.has("result")) {
+				return 0;
+			} else if (response.getString("result").equals("existed")) {
+				return -1;
+			} else {
+				return 1;
+			}
+		} else {
+			return 1;
+		}
 	}
 
 	@Override
 	public Boolean delBCCollection(Integer collectionId) {
 		try{
-			BCCollecDao.delete(collectionId); 
-		}catch (Exception e) {
+			List<BCCollection> collections = BCCollecDao.findByProperty("collectionId", collectionId);
+			if (!collections.isEmpty()) {
+				BCCollecDao.delete(collectionId);
+				BCCollection target = collections.get(0);
+				if (target.getEntityType() == 1) {
+					JSONObject root = new JSONObject();
+			        root.put("method", RecommenderUtils.delCollectItemMethod);
+			        JSONObject params = new JSONObject();
+			        params.put("userId", target.getUserId());
+			        params.put("itemId", target.getEntityId());
+			        root.put("params", params);
+					BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+					JSONObject response = httpClient.post(root);
+					return response.has("result") && response.getString("result").equals("success");
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new Boolean(false);
 		}

@@ -6,10 +6,14 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,6 +44,7 @@ import com.t.core.entities.SchoolActivity;
 import com.t.core.entities.SchoolAroundItem;
 import com.t.core.entities.SchoolNews;
 import com.t.core.entities.ShLVInfo;
+import com.t.core.entities.Tag;
 import com.t.core.entities.TagEntity;
 import com.t.core.entities.User;
 import com.t.core.entities.UserFriend;
@@ -47,8 +52,10 @@ import com.t.core.entities.UserInfo;
 import com.t.core.entities.UserSetTags;
 import com.t.core.entities.UserTagLib;
 import com.t.service.interfaces.IUserService;
+import com.t.utils.BaseHttpClient;
 import com.t.utils.Constants;
 import com.t.utils.ImageService;
+import com.t.utils.RecommenderUtils;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -106,7 +113,7 @@ public class UserService implements IUserService {
 	//我的大学注册
 	@SuppressWarnings("static-access")
 	public Integer register(String mobilePhone,String password,Integer sex,Integer age,   //必选项
-			String nickname, /*Integer job,Integer hometown,Integer income,*/int schoolId, int regionId,String picture,String tagContent){    //可选项
+			String nickname, /*Integer job,Integer hometown,Integer income,*/int schoolId, int regionId,String picture,String tagContent) throws JSONException{    //可选项
 		User user = new User();
 		if(userDao.findByProperty("mobilePhone", mobilePhone).size() > 0){
 			return -1;
@@ -361,48 +368,56 @@ public class UserService implements IUserService {
 
 	//获得自定义标签
 	public List<String> getMyTags(Integer userId) {
-		List<UserSetTags> tags = this.settagDao.findByProperty("userId",userId);
-		List<String> tagcontents =  new ArrayList<String>();
+		List<UserSetTags> tags = settagDao.findByProperty("userId",userId);
+		List<String> tagcontents = new ArrayList<String>();
 
-		for(UserSetTags ele:tags){
-			if(ele.getTagId() == null) //自定义tag
-				tagcontents.add(ele.getTagContent());
-			else{
-				UserTagLib libtag = this.taglibDao.get(ele.getTagId());
-				tagcontents.add(libtag.getTagName());
+		for(UserSetTags ele:tags) {
+			if (ele.getTagId() != null) {
+				List<UserTagLib> libtag = taglibDao.findByProperty("tagId", ele.getTagId());
+				if (!libtag.isEmpty()) {
+					tagcontents.add(libtag.get(0).getTagName());
+				}
 			}
 		}
 		return tagcontents;
 	}
 
 	//添加tag，前台传来的是标签列表
-	public void addTag(Integer userId/*, Integer tagId*/, String tagContent) {
-		List<UserSetTags> utags = this.settagDao.findByProperty("userId", userId);
-		for(UserSetTags ele:utags){  //先清空之前的记录
-			this.settagDao.delete(ele);
-		}
-		String[] tags = tagContent.split("#");
-		for(int i=0;i<tags.length;i++){
-			UserSetTags utag = new UserSetTags();
-			utag.setUserId(userId);
-			List<UserTagLib> libtag = this.taglibDao.findByProperty("tagName", tags[i]);
-			//如果不是从标签库里获得
-			if(libtag.size()<1){	    	
-				utag.setTagContent(tags[i]);			 
-			}else{
-				utag.setTagId(libtag.get(0).getTagId());				
+	public void addTag(Integer userId/*, Integer tagId*/, String tagContent) throws JSONException {
+			
+		String[] tags = tagContent.trim().split("#");
+		List<Integer> insertTagIdList = new ArrayList<Integer>();
+		for(int i = 0;i < tags.length; i++){
+			tags[i] = tags[i].trim();
+			if (tags[i].length() == 0) {
+				continue;
 			}
-			settagDao.save(utag);
+			List<UserTagLib> libtag = taglibDao.findByProperty("tagName", tags[i]);
+			//如果不是从标签库里获得
+			if(libtag.size() < 1) {
+				taglibDao.save(new UserTagLib(null, tags[i]));
+			}
+			int tagId = taglibDao.lookUpTag(tags[i]);
+			if (tagId != -1) {
+				int utagId = settagDao.lookUpTag(userId, tagId);
+				if (utagId == -1) {
+					UserSetTags utag = new UserSetTags();
+					utag.setUserId(userId);
+					utag.setTagId(tagId);
+					insertTagIdList.add(tagId);
+					settagDao.save(utag);
+				}
+			}
 		}
-		/*UserSetTags utag = new UserSetTags();
-		utag.setUserId(userId);
-		if(tagId == null){
-			utag.setTagContent(tagContent);
-			settagDao.save(utag);
-		}else{
-			utag.setTagId(tagId);
-			settagDao.save(utag);
-		}*/
+		
+		JSONObject root = new JSONObject();
+        root.put("method", RecommenderUtils.insertUserTagMethod);
+        JSONObject params = new JSONObject();
+        params.put("id", userId);
+        params.put("tags", insertTagIdList);
+        root.put("params", params);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+		JSONObject response = httpClient.post(root);
 	}
 
 	@Override
@@ -412,34 +427,38 @@ public class UserService implements IUserService {
 
 	//修改个人信息
 	public void modifyInfo(int userId, String picture, String nickName,
-			int schoolId, int regionId, String tagContent) {
+			int schoolId, int regionId, String tagContent) throws JSONException {
 		UserInfo uinfo = this.userInfoDao.get(userId);
-		String fileName =String.valueOf(new Date().getTime());
-		File dir = new File(ServletActionContext.getServletContext().getRealPath("HeadImages"));
-		File file = new File(dir, fileName);
-		//   System.out.println(fileName+"  "+filePath);
-		try {
-			FileOutputStream out = new FileOutputStream(file);
-			//System.out.println(out.toString());
-			ByteArrayInputStream in = new ByteArrayInputStream(picture.getBytes("ISO-8859-1"));
-			//System.out.println(picture);
-			byte[] buffer = new byte[1024 * 1024];
-			int to_write = in.read(buffer);
-			while (to_write > 0) {
-				out.write(buffer, 0, to_write);
-				to_write = in.read(buffer);
+		if (picture != null && picture.length() > 0) {
+			String fileName =String.valueOf(new Date().getTime());
+			File dir = new File(ServletActionContext.getServletContext().getRealPath("HeadImages"));
+			File file = new File(dir, fileName);
+			//   System.out.println(fileName+"  "+filePath);
+			try {
+				FileOutputStream out = new FileOutputStream(file);
+				//System.out.println(out.toString());
+				ByteArrayInputStream in = new ByteArrayInputStream(picture.getBytes("ISO-8859-1"));
+				//System.out.println(picture);
+				byte[] buffer = new byte[1024 * 1024];
+				int to_write = in.read(buffer);
+				while (to_write > 0) {
+					out.write(buffer, 0, to_write);
+					to_write = in.read(buffer);
+				}
+				out.flush();
+				out.close();
+				/*	    	File src = new File(picture);
+		    	File dst = new File(filePath);
+		    	imageService.copy(src, dst);*/
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			out.flush();
-			out.close();
-			/*	    	File src = new File(picture);
-	    	File dst = new File(filePath);
-	    	imageService.copy(src, dst);*/
-		} catch (Exception e) {
-			e.printStackTrace();
-		}   
-
-		uinfo.setPicture(fileName);
-		uinfo.setNickname(nickName);
+			
+			uinfo.setPicture(fileName);
+		}
+		if (nickName != null && nickName.length() > 0) {
+			uinfo.setNickname(nickName);
+		}
 		uinfo.setSchoolId(schoolId);
 		uinfo.setRegionId(regionId);
 		userInfoDao.saveOrUpdate(uinfo);

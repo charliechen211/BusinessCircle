@@ -2,6 +2,8 @@ package com.t.service.interfaces;
 
 import java.util.List;
 
+import org.json.JSONException;
+
 import com.t.bean.ModuleObjectBean;
 import com.t.bean.RecommendFriendBean;
 import com.t.bean.SchoolsRegionsBean;
@@ -11,7 +13,7 @@ public interface IUserService {
 	
 	//我的大学 注册用户
 	public Integer register(String mobilePhone,String password,Integer sex,Integer age,   //必选项
-			String nickname, /*Integer job,Integer hometown,Integer income,Integer point,*/int schoolId, int regionId,String picture,String tagContent);    //可选项  
+			String nickname, /*Integer job,Integer hometown,Integer income,Integer point,*/int schoolId, int regionId,String picture,String tagContent) throws JSONException;    //可选项  
 	
 	//智慧商圈注册用户
 	public Integer bcregister(String mobilePhone,String password,Integer sex,Integer age,   //必选项
@@ -34,13 +36,13 @@ public interface IUserService {
 	//获得自定义个性标签
 	public List<String> getMyTags(Integer userId);
 	
-	public void addTag(Integer userId/*,Integer tagId*/,String tagContent);
+	public void addTag(Integer userId/*,Integer tagId*/,String tagContent) throws JSONException;
 	
 	//获得学校和校区
 	public List<SchoolsRegionsBean> getAllSchoolsAndRegions();
 	
 	//修改个人信息
-	public void modifyInfo (int userId,String picture,String nickName,int schoolId,int regionId,String tags);   
+	public void modifyInfo (int userId,String picture,String nickName,int schoolId,int regionId,String tags) throws JSONException;   
 	
 	//获得推荐信息
 	public List<ModuleObjectBean> recommendInfos();
