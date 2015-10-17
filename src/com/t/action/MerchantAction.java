@@ -142,7 +142,7 @@ public class MerchantAction extends BaseAction{
 			tagservice.insertTag(0,newmerchantId,(long)1,tags);
 
 			return "shopAddSuccess";
-		}catch(Exception e){
+		} catch(Exception e){
 			System.out.println(e);
 			return "error";
 		}

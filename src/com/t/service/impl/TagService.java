@@ -46,6 +46,10 @@ public class TagService implements ITagService{
 		if(content.size() == 0)
 			return false;
 		for(int i=0; i<content.size(); i++){
+			content.set(i, content.get(i).trim());
+			if (content.get(i).length() == 0) {
+				continue;
+			}
 			System.out.println("content: "+content.get(i));
 			TagRecord tagRecord = 
 				new TagRecord(
@@ -83,12 +87,12 @@ public class TagService implements ITagService{
 		}
 		
 		JSONObject root = new JSONObject();
-        root.put("method", RecommenderUtils.insertItemTagMethod);
+        root.put("method", RecommenderUtils.getInsertItemTagMethod());
         JSONObject params = new JSONObject();
         params.put("id", userId);
         params.put("tags", tagIdList);
         root.put("params", params);
-		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
 		JSONObject response = httpClient.post(root);
 		return response.has("result") && response.get("result").equals("success");
 	}

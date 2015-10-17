@@ -47,12 +47,12 @@ public class RecommenderService implements IRecommenderService {
 			}
 		}
 		JSONObject root = new JSONObject();
-        root.put("method", RecommenderUtils.predictMethod);
+        root.put("method", RecommenderUtils.getPredictMethod());
         JSONObject params = new JSONObject();
         params.put("id", userId);
         params.put("items", collectionList);
         root.put("params", params);
-		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
 		JSONObject response = httpClient.post(root);
 		
 		List<MerchantBean> merchantPredictList = new ArrayList<MerchantBean>();
@@ -65,6 +65,11 @@ public class RecommenderService implements IRecommenderService {
 			JSONArray itemCFList = response.getJSONArray("itemCFList");
 			for (int i = 0; i < itemCFList.length(); i++) {
 				Integer merchantId = Integer.valueOf(itemCFList.getString(i));
+				merchantPredictList.add(fetchMerchantBean(merchantId, userId));
+			}
+			JSONArray hotList = response.getJSONArray("hotList");
+			for (int i = 0; i < hotList.length(); i++) {
+				Integer merchantId = Integer.valueOf(hotList.getString(i));
 				merchantPredictList.add(fetchMerchantBean(merchantId, userId));
 			}
 		}

@@ -345,12 +345,12 @@ public class CollectionService implements ICollectionService {
 		
 		if (entityType == 1) {
 			JSONObject root = new JSONObject();
-	        root.put("method", RecommenderUtils.collectItemMethod);
+	        root.put("method", RecommenderUtils.getCollectItemMethod());
 	        JSONObject params = new JSONObject();
 	        params.put("userId", userId);
 	        params.put("itemId", entityId);
 	        root.put("params", params);
-			BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+			BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
 			JSONObject response = httpClient.post(root);
 			if(!response.has("result")) {
 				return 0;
@@ -373,12 +373,12 @@ public class CollectionService implements ICollectionService {
 				BCCollection target = collections.get(0);
 				if (target.getEntityType() == 1) {
 					JSONObject root = new JSONObject();
-			        root.put("method", RecommenderUtils.delCollectItemMethod);
+			        root.put("method", RecommenderUtils.getDelCollectItemMethod());
 			        JSONObject params = new JSONObject();
 			        params.put("userId", target.getUserId());
 			        params.put("itemId", target.getEntityId());
 			        root.put("params", params);
-					BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+					BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
 					JSONObject response = httpClient.post(root);
 					return response.has("result") && response.getString("result").equals("success");
 				}

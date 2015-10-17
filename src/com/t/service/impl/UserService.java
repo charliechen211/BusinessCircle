@@ -411,12 +411,12 @@ public class UserService implements IUserService {
 		}
 		
 		JSONObject root = new JSONObject();
-        root.put("method", RecommenderUtils.insertUserTagMethod);
+        root.put("method", RecommenderUtils.getInsertUserTagMethod());
         JSONObject params = new JSONObject();
         params.put("id", userId);
         params.put("tags", insertTagIdList);
         root.put("params", params);
-		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.recommenderUrl);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
 		JSONObject response = httpClient.post(root);
 	}
 
