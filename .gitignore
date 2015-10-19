@@ -8,4 +8,5 @@ WebRoot/
 .git/
 .springBeans
 *.iml
+.DS_Store
 
