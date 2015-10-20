@@ -92,6 +92,17 @@ public class UserService implements IUserService {
 
 	private ImageService imageService;
 
+	// 使用手机号登录
+	public Integer login(String mobilePhone) {
+		List<User> list = userDao.findByProperty("mobilePhone", mobilePhone);
+		if (list.isEmpty()) {
+			return -1;
+		} else {
+			return list.get(0).getUserId();
+		}
+	}
+	
+	// 使用手机号和用户名登陆
 	public Integer login(String mobilePhone, String password){
 		List<User> list = userDao.findByProperty("mobilePhone", mobilePhone);
 		if(list.isEmpty())
@@ -197,7 +208,7 @@ public class UserService implements IUserService {
 		return userId;
 	}
 
-	//拉取用户详细信息
+	//通过用户名拉取用户详细信息
 	@SuppressWarnings("unchecked")
 	public UserBean fetchUserBean(Integer userId){
 

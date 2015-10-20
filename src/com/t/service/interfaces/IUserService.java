@@ -18,6 +18,7 @@ public interface IUserService {
 			String nickname, Integer job,Integer hometown,Integer income,Integer point,String picture);    //可选项  
 	
 	public Integer login(String mobilePhone, String password);
+	public Integer login(String mobilePhone);
 	//提取用户的详细信息
 	public UserBean fetchUserBean(Integer userId);
 	public List<UserBean> fetchFriends(Integer userId);

@@ -112,8 +112,20 @@ public class UserAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	// 外部接入，注册或登录
+	public String registerOrLogin() {
+		int userId = userServe.login(mobilePhone);
+		if (userId == -1) {
+			userId = userServe.bcregister(mobilePhone, "1234", 1, 20, mobilePhone, 1, 1, 1, 0, null);
+		}
+		userBean = userServe.fetchUserBean(userId);
+		result.put("result", userBean);
+		result.put(STATE, SUCCESS);
+		return SUCCESS;
+	}
 
-	//用户登录
+	// 用户登录
 	public String login(){
 
 		loginResult = userServe.login(mobilePhone, password);

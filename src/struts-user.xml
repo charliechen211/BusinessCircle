@@ -10,6 +10,12 @@
 			</result>
 		</action>
 		
+		<action name="registerOrLogin" class="com.t.action.UserAction" method="registerOrLogin">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
 		<action name="register" class="com.t.action.UserAction" method="register">
 			<result type="json">
 				<param name="root">result</param>
