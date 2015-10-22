@@ -49,4 +49,19 @@ public class RecMerchantAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	// 从实时推荐系统中获取最热商家
+	public String hotMerchant() {		
+		try {
+			merchantBean = recService.fetchHotMerchantBeans(userId);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("STATE", FAIL);
+			return FAIL;
+		}
+		result.put("result", merchantBean);
+		result.put(STATE, SUCCESS);
+		return SUCCESS;
+	}
+	
 }

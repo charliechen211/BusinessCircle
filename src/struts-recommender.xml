@@ -9,5 +9,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="hotMerchant" class="com.t.action.RecMerchantAction" method="hotMerchant">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>

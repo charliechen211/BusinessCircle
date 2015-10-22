@@ -47,7 +47,7 @@ public class RecommenderService implements IRecommenderService {
 			}
 		}
 		JSONObject root = new JSONObject();
-        root.put("method", RecommenderUtils.getPredictMethod());
+        root.put("method", RecommenderUtils.getRecPredictMethod());
         JSONObject params = new JSONObject();
         params.put("id", userId);
         params.put("items", collectionList);
@@ -60,26 +60,55 @@ public class RecommenderService implements IRecommenderService {
 			JSONArray userCFList = response.getJSONArray("userCFList");
 			for (int i = 0; i < userCFList.length(); i++) {
 				Integer merchantId = Integer.valueOf(userCFList.getString(i));
-				merchantPredictList.add(fetchMerchantBean(merchantId, userId));
+				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId);
+				if (merchantBean != null)
+					merchantPredictList.add(merchantBean);
 			}
 			JSONArray itemCFList = response.getJSONArray("itemCFList");
 			for (int i = 0; i < itemCFList.length(); i++) {
 				Integer merchantId = Integer.valueOf(itemCFList.getString(i));
-				merchantPredictList.add(fetchMerchantBean(merchantId, userId));
+				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId);
+				if (merchantBean != null)
+					merchantPredictList.add(merchantBean);
 			}
 			JSONArray hotList = response.getJSONArray("hotList");
 			for (int i = 0; i < hotList.length(); i++) {
 				Integer merchantId = Integer.valueOf(hotList.getString(i));
-				merchantPredictList.add(fetchMerchantBean(merchantId, userId));
+				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId);
+				if (merchantBean != null)
+					merchantPredictList.add(merchantBean);
+			}
+		}
+		return merchantPredictList;
+	}
+	
+	@Override
+	public List<MerchantBean> fetchHotMerchantBeans(int userId) throws JSONException {
+		// TODO Auto-generated method stub
+		JSONObject root = new JSONObject();
+        root.put("method", RecommenderUtils.getHotPredictMethod());
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
+		JSONObject response = httpClient.post(root);
+		
+		List<MerchantBean> merchantPredictList = new ArrayList<MerchantBean>();
+		if (response.has("result") && response.getString("result").equals("success")) {
+			JSONArray hotList = response.getJSONArray("hotList");
+			for (int i = 0; i < hotList.length(); i++) {
+				Integer merchantId = Integer.valueOf(hotList.getString(i));
+				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId);
+				if (merchantBean != null)
+					merchantPredictList.add(merchantBean);
 			}
 		}
 		return merchantPredictList;
 	}
 		
 	private MerchantBean fetchMerchantBean(Integer merchantId, Integer userId){
-		Merchant merchant = new Merchant();
-		if(merchantDao.findByProperty("merchantId", merchantId).size() > 0)
-			merchant = merchantDao.findByProperty("merchantId", merchantId).get(0);
+		List<Merchant> merchantList = merchantDao.findByProperty("merchantId", merchantId);
+		if(merchantList == null || merchantList.size() <= 0) {
+			return null;
+		}
+		Merchant merchant = merchantList.get(0);
 		MerchantBean merchantBean = new MerchantBean(merchant);
 		List<String> tags = new ArrayList<String>();
 		List<TagEntity> tagEntity = tagEntityDao.getMerchantTags(merchantId);
