@@ -37,7 +37,6 @@ public class RecommenderUtils {
             e.printStackTrace();
         }
 	}
-	
 
 	public static String getRecommenderUrl() {
 		return recommenderUrl;

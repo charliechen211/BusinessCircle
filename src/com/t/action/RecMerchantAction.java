@@ -23,6 +23,10 @@ public class RecMerchantAction extends BaseAction{
 
 	private Integer userId;
 	
+	private Double longitude;
+	
+	private Double latitude;
+	
 	public Integer getUserId() {
 		return userId;
 	}
@@ -31,13 +35,30 @@ public class RecMerchantAction extends BaseAction{
 		this.userId = userId;
 	}
 
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+
 	@Autowired
 	private IRecommenderService recService;
 	
 	// 从实时推荐系统中获取推荐商家
 	public String recMerchant() {		
 		try {
-			merchantBean = recService.fetchRecMerchantBeans(userId);
+			merchantBean = recService.fetchRecMerchantBeans(userId, longitude, latitude);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,7 +73,7 @@ public class RecMerchantAction extends BaseAction{
 	// 从实时推荐系统中获取最热商家
 	public String hotMerchant() {		
 		try {
-			merchantBean = recService.fetchHotMerchantBeans(userId);
+			merchantBean = recService.fetchHotMerchantBeans(userId, longitude, latitude);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
