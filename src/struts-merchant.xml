@@ -65,7 +65,7 @@
 			<result name="fail">/web/empty.jsp  </result>
 		</action>  
 		
-		  <action name="ShopCheck" class="com.t.action.MerchantAction" method="ShopCheck" >
+		 <action name="ShopCheck" class="com.t.action.MerchantAction" method="ShopCheck" >
 			<result name="success">/web/ShopCheckList.jsp  </result>  
 			<result name="fail">/web/empty.jsp  </result>
 			<result name="empty">/web/empty.jsp  </result>
@@ -85,8 +85,6 @@
 			<result name="success">/web/AllShopList.jsp</result>  
 			<result name="empty">/web/empty.jsp  </result>
 		</action>
-		
-		
-		
+	
 	</package>
 </struts>

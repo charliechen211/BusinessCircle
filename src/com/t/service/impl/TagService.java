@@ -3,6 +3,8 @@ package com.t.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,6 +17,8 @@ import com.t.core.entities.Tag;
 import com.t.core.entities.TagEntity;
 import com.t.core.entities.TagRecord;
 import com.t.service.interfaces.ITagService;
+import com.t.utils.BaseHttpClient;
+import com.t.utils.RecommenderUtils;
 
 
 @Service
@@ -35,13 +39,17 @@ public class TagService implements ITagService{
 			Integer userId,
 			Integer entityId,
 			Long entityType,
-			List<String> content) {
+			List<String> content) throws JSONException {
 		// TODO Auto-generated method stub
 		
 		List<TagRecord> tagList = new ArrayList<TagRecord>();
 		if(content.size() == 0)
 			return false;
 		for(int i=0; i<content.size(); i++){
+			content.set(i, content.get(i).trim());
+			if (content.get(i).length() == 0) {
+				continue;
+			}
 			System.out.println("content: "+content.get(i));
 			TagRecord tagRecord = 
 				new TagRecord(
@@ -54,12 +62,15 @@ public class TagService implements ITagService{
 			tagList.add(tagRecord);
 		}
 		
+		List<Integer> tagIdList = new ArrayList<Integer>();
 		for(int i=0; i<tagList.size(); i++){
 			TagRecord thisTag = tagList.get(i);
 			int tagId = tagDao.lookUpTag(thisTag.getTag_1());
 			if(tagId==-1)
 				tagDao.save(new Tag(null, thisTag.getTag_1()));
-			thisTag.setTag(tagDao.lookUpTag(thisTag.getTag_1()));
+			tagId = tagDao.lookUpTag(thisTag.getTag_1());
+			thisTag.setTag(tagId);
+			tagIdList.add(tagId);
 			
 			tagRecordDao.save(thisTag);
 			
@@ -74,7 +85,16 @@ public class TagService implements ITagService{
 			
 			tagEntityDao.save(tagEntity);
 		}
-		return true;
+		
+		JSONObject root = new JSONObject();
+        root.put("method", RecommenderUtils.getInsertItemTagMethod());
+        JSONObject params = new JSONObject();
+        params.put("id", userId);
+        params.put("tags", tagIdList);
+        root.put("params", params);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
+		JSONObject response = httpClient.post(root);
+		return response.has("result") && response.get("result").equals("success");
 	}
 }
 

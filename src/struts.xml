@@ -51,4 +51,5 @@
 	<include file="struts-circle.xml"/>
 	<include file="struts-location.xml"/>
 	<include file="struts-moduletab.xml"/>
+	<include file="struts-recommender.xml"/>
 </struts>

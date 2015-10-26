@@ -35,6 +35,7 @@ import com.t.core.entities.UserInfo;
 import com.t.service.interfaces.ISearchMerchantService;
 import com.t.test.MongoClient;
 import com.t.utils.Constants;
+import com.t.utils.Distances;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -49,29 +50,6 @@ public class SearchMerchantService implements ISearchMerchantService {
 	@Autowired
 	private UserFriendDao userFriendDao;
 
-	private static final double EARTH_RADIUS = 6378137;
-
-	private static double rad(double d)
-	{
-		return d * Math.PI / 180.0;
-	}
-
-	/**
-	 * 根据两点间经纬度坐标（double值），计算两点间距离，单位为米
-	 * @return
-	 */
-	public static double GetDistance(double lng1, double lat1, double lng2, double lat2)
-	{
-		double radLat1 = rad(lat1);
-		double radLat2 = rad(lat2);
-		double a = radLat1 - radLat2;
-		double b = rad(lng1) - rad(lng2);
-		double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + 
-				Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
-		s = s * EARTH_RADIUS;
-		s = Math.round(s * 10000) / 10000;
-		return s;
-	}
 
 	//根据用户的输入搜索相应的好友
 	@SuppressWarnings("unchecked")
@@ -177,7 +155,7 @@ public class SearchMerchantService implements ISearchMerchantService {
 		List<Merchant> resultList = new ArrayList<Merchant>();
 		//获得要求距离范围内的商家
 		for(Merchant ele :allShops){  
-			if(GetDistance(ele.getLongitude(),ele.getLatitude(),longitude,latitude)<=distance){
+			if(Distances.computeDistance(ele.getLongitude(),ele.getLatitude(),longitude,latitude)<=distance){
 				resultList.add(ele);
 			}
 		}
@@ -196,7 +174,7 @@ public class SearchMerchantService implements ISearchMerchantService {
 					}
 					MerchantBean bean = new MerchantBean(merchant);
 					bean.setTagName(tags);
-					bean.setDistance(GetDistance(resultList.get(j).getLongitude(),resultList.get(j).getLatitude(),longitude,latitude));
+					bean.setDistance(Distances.computeDistance(resultList.get(j).getLongitude(),resultList.get(j).getLatitude(),longitude,latitude));
 					merchantBeans.add(bean);
 				}
 			}

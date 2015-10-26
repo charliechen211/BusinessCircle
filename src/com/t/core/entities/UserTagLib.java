@@ -11,6 +11,11 @@ public class UserTagLib {
 	private String tagName;
 	
 	public UserTagLib() {}
+	
+	public UserTagLib(Integer tagId, String tagName) {
+		this.tagId = tagId;
+		this.tagName = tagName;
+	}
 
 	public Integer getTagId() {
 		return tagId;

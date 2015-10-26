@@ -2,6 +2,7 @@ package com.t.action;
 
 import java.util.List;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.t.service.interfaces.ITagService;
@@ -28,7 +29,13 @@ public class InsertTagAction extends BaseAction {
 
 	public String insert(){
 		
-		insertResult = service.insertTag(userId, entityId, entityType, content);
+		try {
+			insertResult = service.insertTag(userId, entityId, entityType, content);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return FAIL;
+		}
 		return SUCCESS;
 	}
 	

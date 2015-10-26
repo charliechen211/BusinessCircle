@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mongodb.MongoException;
@@ -66,7 +67,13 @@ public class DataTransAction extends BaseAction {
 				}
 			}
 			userId = Math.abs(random.nextInt())%10;
-			insertTagService.insertTag(userId, Integer.valueOf(i+1),Long.valueOf(1), tags);
+			try {
+				insertTagService.insertTag(userId, Integer.valueOf(i+1),Long.valueOf(1), tags);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return FAIL;
+			}
 		}
 		return SUCCESS;
 	}

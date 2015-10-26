@@ -113,7 +113,7 @@ public class MerchantService implements IMerchantService {
 
 	//通过ID查找其商铺
 	public Merchant shopFindByShopId(String shopId){
-		return merchantDao.findUniqueByProperty("merchantId",Integer.parseInt(shopId)) ;
+		return merchantDao.findUniqueByProperty("merchantId",Integer.parseInt(shopId));
 	}
 
 	public void shopUpdate(Merchant shop) {

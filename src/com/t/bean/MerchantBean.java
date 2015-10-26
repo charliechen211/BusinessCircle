@@ -17,6 +17,7 @@ public class MerchantBean implements Comparable<MerchantBean>{
 	private List<String> tagName;
 	private Double distance;
 	private Integer typeId;//商铺类型
+	private int collectionCount;
 	
 	private Integer type;//是否订阅
 	public MerchantBean() {
@@ -32,6 +33,7 @@ public class MerchantBean implements Comparable<MerchantBean>{
 		picture = merchant.getPicture();
 		typeId = merchant.getType();
 		type = merchant.getType();
+		collectionCount = -1;
 	}
 	
 	public Integer getTypeId() {
@@ -113,6 +115,13 @@ public class MerchantBean implements Comparable<MerchantBean>{
 		this.picture = picture;
 	}
 
+	public int getCollectionCount() {
+		return collectionCount;
+	}
+	public void setCollectionCount(int collectionCount) {
+		this.collectionCount = collectionCount;
+	}
+	
 	public int compareTo(MerchantBean arg0) {
         return this.getDistance().compareTo(arg0.getDistance());
     }
