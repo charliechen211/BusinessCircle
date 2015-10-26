@@ -9,4 +9,5 @@ WebRoot/
 .springBeans
 *.iml
 .DS_Store
-
+.war
+src/recommender-config.properties
