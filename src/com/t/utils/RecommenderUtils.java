@@ -15,6 +15,7 @@ public class RecommenderUtils {
 
 	private static String recPredictMethod;
 	private static String hotPredictMethod;
+	private static String cfPredictMethod;
 	private static String insertUserTagMethod;
 	private static String insertItemTagMethod;
 	private static String collectItemMethod;
@@ -28,6 +29,7 @@ public class RecommenderUtils {
             recommenderUrl = prop.getProperty("recommender.url");
             recPredictMethod = prop.getProperty("recommender.recPredict");
             hotPredictMethod = prop.getProperty("recommender.hotPredict");
+            cfPredictMethod = prop.getProperty("recommender.cfPredict");
             insertUserTagMethod = prop.getProperty("recommender.insertUserTag");
             insertItemTagMethod = prop.getProperty("recommender.insertItemTag");
             collectItemMethod = prop.getProperty("recommender.collectItem");
@@ -48,6 +50,10 @@ public class RecommenderUtils {
 
 	public static String getHotPredictMethod() {
 		return hotPredictMethod;
+	}
+	
+	public static String getCfPredictMethod() {
+		return cfPredictMethod;
 	}
 	
 	public static String getInsertUserTagMethod() {

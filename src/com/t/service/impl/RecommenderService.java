@@ -64,22 +64,28 @@ public class RecommenderService implements IRecommenderService {
 			for (int i = 0; i < userCFList.length(); i++) {
 				Integer merchantId = Integer.valueOf(userCFList.getString(i));
 				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId, longitude, latitude);
-				if (merchantBean != null)
+				if (merchantBean != null) {
+					merchantBean.setRecType(1);
 					merchantPredictList.add(merchantBean);
+				}
 			}
 			JSONArray itemCFList = response.getJSONArray("itemCFList");
 			for (int i = 0; i < itemCFList.length(); i++) {
 				Integer merchantId = Integer.valueOf(itemCFList.getString(i));
 				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId, longitude, latitude);
-				if (merchantBean != null)
+				if (merchantBean != null) {
+					merchantBean.setRecType(2);
 					merchantPredictList.add(merchantBean);
+				}
 			}
 			JSONArray hotList = response.getJSONArray("hotList");
 			for (int i = 0; i < hotList.length(); i++) {
 				Integer merchantId = Integer.valueOf(hotList.getString(i));
 				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId, longitude, latitude);
-				if (merchantBean != null)
+				if (merchantBean != null) {
+					merchantBean.setRecType(3);
 					merchantPredictList.add(merchantBean);
+				}
 			}
 		}
 		return merchantPredictList;
@@ -113,6 +119,31 @@ public class RecommenderService implements IRecommenderService {
 		return merchantPredictList;
 	}
 		
+	@Override
+	public List<MerchantBean> fetchCfRecMerchantBeans(int userId, double longitude, double latitude) throws JSONException {
+		// TODO Auto-generated method stub
+		JSONObject root = new JSONObject();
+        root.put("method", RecommenderUtils.getCfPredictMethod());
+        JSONObject params = new JSONObject();
+        params.put("id", userId);
+        root.put("params", params);
+		BaseHttpClient httpClient = new BaseHttpClient(RecommenderUtils.getRecommenderUrl());
+		JSONObject response = httpClient.post(root);
+		
+		List<MerchantBean> merchantPredictList = new ArrayList<MerchantBean>();
+		if (response.has("result") && response.getString("result").equals("success")) {
+			JSONArray cfList = response.getJSONArray("cfList");
+			for (int i = 0; i < cfList.length(); i++) {
+				Integer merchantId = Integer.valueOf(cfList.getString(i));
+				MerchantBean merchantBean = fetchMerchantBean(merchantId, userId, longitude, latitude);
+				if (merchantBean != null) {
+					merchantPredictList.add(merchantBean);
+				}
+			}
+		}
+		return merchantPredictList;
+	}
+	
 	private MerchantBean fetchMerchantBean(Integer merchantId, Integer userId, double longitude, double latitude){
 		List<Merchant> merchantList = merchantDao.findByProperty("merchantId", merchantId);
 		if(merchantList == null || merchantList.size() <= 0) {

@@ -18,6 +18,7 @@ public class MerchantBean implements Comparable<MerchantBean>{
 	private Double distance;
 	private Integer typeId;//商铺类型
 	private int collectionCount;
+	private int recType;
 	
 	private Integer type;//是否订阅
 	public MerchantBean() {
@@ -34,8 +35,15 @@ public class MerchantBean implements Comparable<MerchantBean>{
 		typeId = merchant.getType();
 		type = merchant.getType();
 		collectionCount = -1;
+		recType = 0;
 	}
 	
+	public int getRecType() {
+		return recType;
+	}
+	public void setRecType(int recType) {
+		this.recType = recType;
+	}
 	public Integer getTypeId() {
 		return typeId;
 	}

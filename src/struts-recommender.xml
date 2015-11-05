@@ -14,5 +14,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="cfRecMerchant" class="com.t.action.RecMerchantAction" method="cfRecMerchant">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>

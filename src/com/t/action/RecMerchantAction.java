@@ -55,7 +55,7 @@ public class RecMerchantAction extends BaseAction{
 	@Autowired
 	private IRecommenderService recService;
 	
-	// 从实时推荐系统中获取推荐商家
+	// 从实时推荐系统中获取综合推荐商家
 	public String recMerchant() {		
 		try {
 			merchantBean = recService.fetchRecMerchantBeans(userId, longitude, latitude);
@@ -74,6 +74,21 @@ public class RecMerchantAction extends BaseAction{
 	public String hotMerchant() {		
 		try {
 			merchantBean = recService.fetchHotMerchantBeans(userId, longitude, latitude);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("STATE", FAIL);
+			return FAIL;
+		}
+		result.put("result", merchantBean);
+		result.put(STATE, SUCCESS);
+		return SUCCESS;
+	}
+	
+	// 从实时推荐系统中获取个性推荐商家
+	public String cfRecMerchant() {		
+		try {
+			merchantBean = recService.fetchCfRecMerchantBeans(userId, longitude, latitude);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

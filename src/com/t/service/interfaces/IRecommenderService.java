@@ -16,4 +16,6 @@ public interface IRecommenderService {
 
 	public List<MerchantBean> fetchHotMerchantBeans(int userId, double longitude, double latitude) throws JSONException;
 	
+	public List<MerchantBean> fetchCfRecMerchantBeans(int userId, double longitude, double latitude) throws JSONException;
+	
 }
